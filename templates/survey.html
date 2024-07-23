@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ translation.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #f0f2f5, #cfd9df);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .instructions {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        p.instructions {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .question-section {
+            padding: 15px;
+        }
+        p.question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            display: none; /* Hide the button */
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        function submitForm() {
+            document.getElementById('surveyForm').submit();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="translations">
+            <h1>{{ translation.title }}</h1>
+            <p class="instructions">{{ translation.instructions }}</p>
+        </div>
+        <div class="question-section">
+            <form id="surveyForm" method="POST">
+                <p class="question">{{ question_text }}</p>
+                {% for option in translation.options %}
+                    <label>
+                        <input type="radio" name="response" value="{{ loop.index }}" onchange="submitForm()" required>
+                        {{ option }}
+                    </label>
+                {% endfor %}
+                <button type="submit">Next</button>
+            </form>
+            <p>{{ question_number }} / {{ total_questions }}</p>
+        </div>
+    </div>
+</body>
+</html>
